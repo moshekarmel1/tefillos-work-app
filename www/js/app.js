@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('tehillim', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('tehillim', ['ionic', 'tehillim.controllers', 'tehillim.services', 'angularMoment'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -32,7 +32,7 @@ angular.module('tehillim', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
@@ -41,7 +41,7 @@ angular.module('tehillim', ['ionic', 'starter.controllers', 'starter.services'])
   // Each tab has its own nav history stack:
 
   .state('tab.dash', {
-    url: '/browse',
+    url: '/dash',
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
@@ -54,6 +54,42 @@ angular.module('tehillim', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+  .state('add', {
+        url: '/add',
+        templateUrl: 'templates/add.html',
+        controller: 'MainCtrl'
+    })
+    .state('browse', {
+        url: '/browse/{id}',
+        templateUrl: 'templates/events.html',
+        controller: 'EventsCtrl',
+        resolve: {
+            event: ['$stateParams', 'events', function($stateParams, events) {
+                return events.get($stateParams.id);
+            }]
+        }
+    })
+    .state('login', {
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(auth.isLoggedIn()){
+                $state.go('add');
+            }
+        }]
+    })
+    .state('register', {
+        url: '/register',
+        templateUrl: 'templates/register.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(auth.isLoggedIn()){
+                $state.go('add');
+            }
+        }]
+    })
+
 
   .state('tab.chats', {
       url: '/chats',
