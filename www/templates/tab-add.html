@@ -1,0 +1,28 @@
+<ion-view view-title="New Post" ng-controller="MainCtrl">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Title</span>
+        <input type="text" placeholder="Someone needs a refuah" maxlength="50" ng-model="post.title"></input>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Hebrew Name</span>
+        <input type="text" placeholder="Shmerel ben Shprintzel" maxlength="100" ng-model="post.name"></input>
+      </label>
+      <label class="item item-input item-select">
+        <span class="input-label">Segula</span>
+        <select ng-options="option for option in listOfOptions"
+	              ng-init="selectedItem = listOfOptions[0]"
+	              ng-model="selectedItem"
+	              ng-change="selectedItemChanged()">
+	      </select>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Description (optional)</span>
+        <textarea type="text" placeholder="Going through a difficult operation today." rows="5" ng-model="post.description"></textarea>
+      </label>
+      <button class="button button-full button-positive" ng-show="isLoggedIn()" ng-click="addPost()">Submit</button>
+      <h4 ng-hide="isLoggedIn()">Please <a href="/#/register">Register</a> or  <a href="/#/login">Log In</a> before you can post. It only takes a second. Seriously.</h4>
+    </div>
+  </ion-content>
+</ion-view>

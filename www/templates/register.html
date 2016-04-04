@@ -1,28 +1,24 @@
-<ion-view view-title="Login">
+<ion-view view-title="Register">
   <ion-content class="padding">
   	<div class="container">
-	  <div class="page-header">
-	    <h1>Tefillos Work<small> crowdsourcing spirituality</small></h1>
-	  </div>
-
 	  <div ng-show="error" class="alert alert-{{error.class}} row">
 	    <span>{{error.message}}</span>
 	  </div>
 
-	  <form ng-submit="register()" style="margin-top:30px;">
-	    <h3>Register</h3>
-
-	    <div class="form-group">
-	      <input type="text" class="form-control" placeholder="Username" ng-model="user.username"></input>
+    <form ng-submit="register()">
+	    <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Username</span>
+          <input type="text" placeholder="mkarmel" ng-model="user.username"></input>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Password</span>
+          <input type="password" placeholder="********" ng-model="user.password"></input>
+        </label>
+        <button type="submit" class="button button-full button-positive">Register</button>
 	    </div>
-	    <div class="form-group">
-	      <input type="password" class="form-control" placeholder="Password" ng-model="user.password"></input>
-	    </div>
-	    <button type="submit" class="btn btn-primary">Register</button>
+      <p class="lead">If you select a kapitel(chapter) of Tehillim, it is assumed that you will finish it by shkia(sunset) of today.</p>
+  	  <p class="lead">If you are doing Hafrashas(separating) Challah, it is assumed that you will finish it by shkia(sunset) of the upcoming Friday.</p>
 	  </form>
-	  <hr />
-	  <p class="lead">If you select a kapitel(chapter), it is assumed that you will finish it by shkia(sunset) of today.</p>
-	  <p class="lead">If you are doing Hafrashas(separating) Challah, it is assumed that you will finish it by shkia(sunset) of the upcoming Friday.</p>
-	</div>
   </ion-content>
 </ion-view>

@@ -1,9 +1,9 @@
 <ion-view view-title="{{event.title}}">
   <ion-content class="padding">
-    <div class="container">
-      <div class="page-header">
-        <a ng-click="sendEmail(event)" class="btn btn-primary btn-md pull-right"><i class="icon-md ion-share"></i><span class="hidden-sm hidden-xs"> Share Link</span></a>
-        <h3>{{event.title}} <br/>
+    <div>
+      <div class="">
+        <button class="button button-positive icon-left ion-share" ng-click="sendEmail(event)">Share Link</button>
+        <h3>
           <small ng-show="event.max === 150">please daven for</small><small ng-show="event.max === 40">please take challah for</small><br />
           {{event.name}}<br />
           <small>posted by {{event.createdBy}}
@@ -20,49 +20,34 @@
       <hr />
       <div ng-hide="isLoggedIn()">
         <h4>Please <a href="/#/register">Register</a> or  <a href="/#/login">Log In</a> before you can make a selection. It only takes a second. Seriously.</h4>
-
       </div>
 
       <div ng-show="error" class="alert alert-{{error.class}} row">
         <span>{{error.message}}</span>
       </div>
-      
-      <div class="row">
-        <div class="col" ng-show="event.max === 150">
+
+      <div>
+        <div ng-show="event.max === 150">
           <h4>Select a kapitel(chapter) of Tehillim based on the number. 1 = Aleph.</h4>
         </div>
-        <div class="col" ng-show="event.max === 40">
+        <div ng-show="event.max === 40">
           <h4>Select a number to join the group of 40.</h4>
         </div>
-        <div class="col">
-          <label>Filtering options</label>
-          <select class="form-control" 
-                  ng-options="option for option in listOfOptions"
-                  ng-init="selectedItem = listOfOptions[0]" 
-                  ng-model="selectedItem"
-                  ng-change="selectedItemChanged()">
-          </select>
-        </div>
       </div>
+      <label class="item item-input item-select">
+        <span class="input-label">Filter</span>
+        <select ng-options="option for option in listOfOptions"
+                ng-init="selectedItem = listOfOptions[0]"
+                ng-model="selectedItem"
+                ng-change="selectedItemChanged()">
+        </select>
+      </label>
       <br />
-      <div class="row">
-        <div class="col" ng-repeat="kap in kapitels | orderBy: order">
-          <div class="flip" ng-class="{'hidden': hidden && kap.isFlipped}"> 
-            <div class="card" ng-class="{'flipped': kap.isFlipped}"> 
-              <div class="face front"> 
-                <label>{{kap.name}}</label>
-                <i class="icon-lg ion-checkmark-circled" ng-click="addAssignment(kap)"></i>
-              </div> 
-              <div class="face back"> 
-                <label>({{kap.name}})</label>
-                <i class="icon-md ion-close-circled pull-right" ng-show="currentUser() == kap.takenBy" ng-click="deleteAssignment(kap)"></i>
-                <br /><label> Taken by <br />
-                {{kap.takenBy}}</label>
-                
-              </div> 
-            </div> 
-          </div>
-          <br ng-class="{'hidden': hidden && kap.isFlipped}" />
+      <div class="list">
+        <div class="item item-icon-left item-icon-right" ng-repeat="kap in kapitels | orderBy: order">
+          <i class="icon ion-checkmark-circled" ng-hide="kap.isFlipped" ng-click="addAssignment(kap)"></i>
+          <i class="icon ion-close-circled" ng-show="kap.takenBy && currentUser() == kap.takenBy" ng-click="deleteAssignment(kap)"></i>
+          <strong>{{kap.name}}</strong><span ng-show="kap.isFlipped"> - taken by {{kap.takenBy}}</span>
         </div>
       </div>
     </div>

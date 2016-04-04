@@ -22,7 +22,7 @@ angular.module('tehillim.controllers', [])
             if(!error){
                 $scope.error = {
                     class: 'danger',
-                    message: 'This site does not work well with K9, sorry...'
+                    message: 'Something went wrong. This site does not work well with K9, sorry...'
                 }
             }else{
                 $scope.error = error;
@@ -59,7 +59,7 @@ angular.module('tehillim.controllers', [])
             if(!error){
                 $scope.error = {
                     class: 'danger',
-                    message: 'This site does not work well with K9, sorry...'
+                    message: 'Something went wrong. This site does not work well with K9, sorry...'
                 }
             }else {
                 $scope.error = error;
@@ -83,7 +83,7 @@ angular.module('tehillim.controllers', [])
 
     $scope.listOfOptions = ['Finish Sefer Tehillim', 'Take Challah with a bracha'];
 
-    $scope.order = 'event.created';
+    $scope.order = '-event.created';
 
     $scope.setOrder = function (order) {
         $scope.order = order;
@@ -92,16 +92,19 @@ angular.module('tehillim.controllers', [])
     $scope.add = function(){
         $window.location.href = '/#/add';
     };
-    
+
+    $scope.post = {};
+
     $scope.addPost = function(){
-        if(!$scope.title || $scope.title === '') {
+        console.log("Add Post Clicked!!!", $scope);
+        if(!$scope.post.title || $scope.post.title === '') {
             $scope.error = {
                 class: 'warning',
                 message: 'Please fill out a title...'
             };
             return;
         }
-        if(!$scope.name || $scope.name === '') {
+        if(!$scope.post.name || $scope.post.name === '') {
             $scope.error = {
                 class: 'warning',
                 message: 'Please enter a hebrew name...'
@@ -121,14 +124,12 @@ angular.module('tehillim.controllers', [])
                 break;
         }
         events.create({
-            title: $scope.title.trim(),
-            name: $scope.name.trim(),
+            title: $scope.post.title.trim(),
+            name: $scope.post.name.trim(),
             max: max,
             description: $scope.description
         });
-        $scope.title = '';
-        $scope.name = '';
-        $scope.description = '';
+        $scope.post = {};
     };
 }])
 
@@ -236,7 +237,7 @@ angular.module('tehillim.controllers', [])
         var subject = (event.max === 150) ? escape("Can you help say some tehillim?") : escape("Are you making challah this week?");
         var link = "mailto:"
                  + "?subject=" + subject
-                 + "&body=" + escape(window.location); 
+                 + "&body=" + escape(window.location);
 
         window.location.href = link;
      };
@@ -270,8 +271,11 @@ angular.module('tehillim.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', ['$scope', 'auth', function($scope, auth) {
+  $scope.isLoggedIn = auth.isLoggedIn;
+  $scope.logout = auth.logOut;
+  $scope.username = auth.currentUser;
   $scope.settings = {
     enableFriends: true
   };
-});
+}]);
