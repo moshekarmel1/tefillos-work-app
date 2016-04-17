@@ -1,7 +1,7 @@
 angular.module('tehillim.services', [])
 
 .factory('auth', ['$http', '$window', function($http, $window){
-    var prefix = 'http://localhost:3000';
+    var prefix = 'http://www.tefillos.work';
     var auth = {};
     //save jwt token in local storage
     auth.saveToken = function (token){
@@ -50,7 +50,7 @@ angular.module('tehillim.services', [])
 }])
 
 .factory('events', ['$http', 'auth', '$window', function($http, auth, $window){
-    var prefix = 'http://localhost:3000';
+    var prefix = 'http://www.tefillos.work';
     var o = {
         events: []
     };

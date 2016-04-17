@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right"
-      ng-repeat="event in events | orderBy: '-created'" type="item-text-wrap" href="#/browse/{{event._id}}">
+      ng-repeat="event in events | orderBy: '-created' track by $index" type="item-text-wrap" href="#/browse/{{event._id}}">
         <img src="img/ionic.png" />
         <h2>{{event.title}}</h2>
         <p>{{event.percent}}% complete. Can you help?</p>

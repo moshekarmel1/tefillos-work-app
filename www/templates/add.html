@@ -20,13 +20,13 @@
 		  </div>
 			<div class="form-group">
 		    <label>Segula</label>
-		    <select class="form-control" 
+		    <select class="form-control"
 	              ng-options="option for option in listOfOptions"
-	              ng-init="selectedItem = listOfOptions[0]" 
+	              ng-init="selectedItem = listOfOptions[0]"
 	              ng-model="selectedItem"
 	              ng-change="selectedItemChanged()">
 	      </select>
-		  </div>	  
+		  </div>
 		  <div class="form-group">
 		  	<label>Description (optional)</label>
 		    <textarea type="text" class="form-control" placeholder="Going through a difficult operation today." rows="5" ng-model="description"></textarea>
@@ -34,7 +34,7 @@
 		  <button id="post" type="submit" class="btn btn-primary">Post</button>
 		</form>
 		<div ng-hide="isLoggedIn()">
-		  <h4>Please <a href="/#/register">Register</a> or  <a href="/#/login">Log In</a> before you can add a post. It only takes a second. Seriously.</h4>
+		  <h4>Please <a href="#/register">Register</a> or  <a href="#/login">Log In</a> before you can add a post. It only takes a second. Seriously.</h4>
 		</div>
 	</div>
   </ion-content>
